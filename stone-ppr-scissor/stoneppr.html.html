@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rock Paper Scissors</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class"
+    }
+  </script>
+</head>
+
+<body class="bg-slate-100 dark:bg-slate-900 min-h-screen flex flex-col items-center justify-center transition">
+
+  <div class="w-[95%] max-w-5xl text-center">
+
+    <h1 class="text-3xl md:text-4xl font-bold mb-20 text-slate-800 dark:text-slate-100">
+      Rock Paper Scissors
+    </h1>
+
+    <!-- Choices -->
+    <div class="grid grid-cols-3 gap-3 md:gap-6">
+
+      <div id="rock" class="choice bg-white dark:bg-slate-800 rounded-xl p-3 md:p-6 shadow-lg cursor-pointer hover:-translate-y-2 transition">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvNHBpVm1NSQmzkHiBUz_OTcpYGecTvkiUGV87MeFU3g&s"
+             class="mx-auto w-16 h-16 md:w-32 md:h-32 object-contain">
+        <p class="mt-2 md:mt-4 font-semibold text-sm md:text-lg dark:text-white">Rock</p>
+      </div>
+
+      <div id="paper" class="choice bg-white dark:bg-slate-800 rounded-xl p-3 md:p-6 shadow-lg cursor-pointer hover:-translate-y-2 transition">
+        <img src="https://sihoonathan.github.io/rock-paper-scissors/assets/img/paper2.png"
+             class="mx-auto w-16 h-16 md:w-32 md:h-32 object-contain">
+        <p class="mt-2 md:mt-4 font-semibold text-sm md:text-lg dark:text-white">Paper</p>
+      </div>
+
+      <div id="scissors" class="choice bg-white dark:bg-slate-800 rounded-xl p-3 md:p-6 shadow-lg cursor-pointer hover:-translate-y-2 transition">
+        <img src="https://i.pinimg.com/474x/67/eb/fd/67ebfd32e898b4ec3ae4e59ae33832c8.jpg"
+             class="mx-auto w-16 h-16 md:w-32 md:h-32 object-contain">
+        <p class="mt-2 md:mt-4 font-semibold text-sm md:text-lg dark:text-white">Scissors</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Lower Section -->
+  <div class="mt-10 text-center">
+
+    <div class="flex justify-center gap-16 mb-6 text-slate-800 dark:text-slate-100">
+      <div>
+        <p id="user-score" class="text-4xl font-bold">0</p>
+        <p>You</p>
+      </div>
+      <div>
+        <p id="comp-score" class="text-4xl font-bold">0</p>
+        <p>Computer</p>
+      </div>
+    </div>
+
+    <p id="msg" class="inline-block bg-emerald-900 dark:bg-emerald-600 text-white px-6 py-3 rounded-xl text-lg">
+      Play your move
+    </p>
+
+    <div class="mt-6">
+      <p class="text-slate-700 dark:text-slate-200">Computer chose:</p>
+      <img id="comp-img"
+           class="mx-auto mt-3 w-16 h-16 md:w-24 md:h-24 object-contain hidden">
+    </div>
+  </div>
+
+  <script>
+    let userScore = 0;
+    let compScore = 0;
+
+    const choices = document.querySelectorAll(".choice");
+    const msg = document.querySelector("#msg");
+    const userScorePara = document.querySelector("#user-score");
+    const compScorePara = document.querySelector("#comp-score");
+    const compImg = document.querySelector("#comp-img");
+
+    const compImages = {
+      rock: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvNHBpVm1NSQmzkHiBUz_OTcpYGecTvkiUGV87MeFU3g&s",
+      paper: "https://sihoonathan.github.io/rock-paper-scissors/assets/img/paper2.png",
+      scissors: "https://i.pinimg.com/474x/67/eb/fd/67ebfd32e898b4ec3ae4e59ae33832c8.jpg"
+    };
+
+    const genCompChoice = () => {
+      const options = ["rock", "paper", "scissors"];
+      return options[Math.floor(Math.random() * options.length)];
+    };
+
+    const drawGame = () => {
+      msg.innerText = "Game Draw 🤝";
+    };
+
+    const showWinner = (userWin) => {
+      if (userWin) {
+        userScore++;
+        userScorePara.innerText = userScore;
+        msg.innerText = "You Win! 🎉";
+      } else {
+        compScore++;
+        compScorePara.innerText = compScore;
+        msg.innerText = "You Lose 😢";
+      }
+    };
+
+    const playGame = (userChoice) => {
+      const compChoice = genCompChoice();
+
+      compImg.src = compImages[compChoice];
+      compImg.classList.remove("hidden");
+
+      if (userChoice === compChoice) {
+        drawGame();
+      } else {
+        let userWin;
+        if (userChoice === "rock") userWin = compChoice !== "paper";
+        else if (userChoice === "paper") userWin = compChoice !== "scissors";
+        else userWin = compChoice !== "rock";
+
+        showWinner(userWin);
+      }
+    };
+
+    choices.forEach(choice => {
+      choice.addEventListener("click", () => {
+        playGame(choice.id);
+      });
+    });
+  </script>
+
+</body>
+</html>
