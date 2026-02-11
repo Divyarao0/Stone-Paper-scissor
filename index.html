@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,21 +25,24 @@
     <!-- Choices -->
     <div class="grid grid-cols-3 gap-3 md:gap-6">
 
-      <div id="rock" class="choice bg-white dark:bg-slate-800 rounded-xl p-3 md:p-6 shadow-lg cursor-pointer hover:-translate-y-2 transition">
+      <div id="rock"
+        class="choice bg-white dark:bg-slate-800 rounded-xl p-3 md:p-6 shadow-lg cursor-pointer hover:-translate-y-2 transition">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvNHBpVm1NSQmzkHiBUz_OTcpYGecTvkiUGV87MeFU3g&s"
-             class="mx-auto w-16 h-16 md:w-32 md:h-32 object-contain">
+          class="mx-auto w-16 h-16 md:w-32 md:h-32 object-contain">
         <p class="mt-2 md:mt-4 font-semibold text-sm md:text-lg dark:text-white">Rock</p>
       </div>
 
-      <div id="paper" class="choice bg-white dark:bg-slate-800 rounded-xl p-3 md:p-6 shadow-lg cursor-pointer hover:-translate-y-2 transition">
+      <div id="paper"
+        class="choice bg-white dark:bg-slate-800 rounded-xl p-3 md:p-6 shadow-lg cursor-pointer hover:-translate-y-2 transition">
         <img src="https://sihoonathan.github.io/rock-paper-scissors/assets/img/paper2.png"
-             class="mx-auto w-16 h-16 md:w-32 md:h-32 object-contain">
+          class="mx-auto w-16 h-16 md:w-32 md:h-32 object-contain">
         <p class="mt-2 md:mt-4 font-semibold text-sm md:text-lg dark:text-white">Paper</p>
       </div>
 
-      <div id="scissors" class="choice bg-white dark:bg-slate-800 rounded-xl p-3 md:p-6 shadow-lg cursor-pointer hover:-translate-y-2 transition">
+      <div id="scissors"
+        class="choice bg-white dark:bg-slate-800 rounded-xl p-3 md:p-6 shadow-lg cursor-pointer hover:-translate-y-2 transition">
         <img src="https://i.pinimg.com/474x/67/eb/fd/67ebfd32e898b4ec3ae4e59ae33832c8.jpg"
-             class="mx-auto w-16 h-16 md:w-32 md:h-32 object-contain">
+          class="mx-auto w-16 h-16 md:w-32 md:h-32 object-contain">
         <p class="mt-2 md:mt-4 font-semibold text-sm md:text-lg dark:text-white">Scissors</p>
       </div>
 
@@ -65,10 +69,11 @@
 
     <div class="mt-6">
       <p class="text-slate-700 dark:text-slate-200">Computer chose:</p>
-      <img id="comp-img"
-           class="mx-auto mt-3 w-16 h-16 md:w-24 md:h-24 object-contain hidden">
+      <img id="comp-img" class="mx-auto mt-3 w-16 h-16 md:w-24 md:h-24 object-contain hidden">
     </div>
   </div>
+
+  <audio id="lose-sound" src="lose.mp3"></audio>
 
   <script>
     let userScore = 0;
@@ -79,6 +84,7 @@
     const userScorePara = document.querySelector("#user-score");
     const compScorePara = document.querySelector("#comp-score");
     const compImg = document.querySelector("#comp-img");
+    const loseSound = document.querySelector("#lose-sound");
 
     const compImages = {
       rock: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvNHBpVm1NSQmzkHiBUz_OTcpYGecTvkiUGV87MeFU3g&s",
@@ -104,6 +110,9 @@
         compScore++;
         compScorePara.innerText = compScore;
         msg.innerText = "You Lose 😢";
+
+        loseSound.currentTime = 0;
+        loseSound.play();
       }
     };
 
@@ -133,4 +142,5 @@
   </script>
 
 </body>
+
 </html>
